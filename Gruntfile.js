@@ -289,9 +289,11 @@ module.exports = function (grunt) {
                 options: {
                     process: function (content, srcpath) {
                         if (srcpath.indexOf("index.html") >= 0) {
-                            // Add Google Analytics code to index.html
-                            content = content.replace("</body></html>",
-                                grunt.file.read("src/web/static/ga.html") + "</body></html>");
+                            // Add Google Analytics code to index.html (upstream repository only)
+                            if (process.env.GITHUB_REPOSITORY === "gchq/CyberChef") {
+                                content = content.replace("</body></html>",
+                                    grunt.file.read("src/web/static/ga.html") + "</body></html>");
+                            }
 
                             // Add Structured Data for SEO
                             content = content.replace("</head>",
